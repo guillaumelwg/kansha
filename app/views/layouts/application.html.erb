@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Kansha</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50">
+    <% if user_signed_in? %>
+      <nav class="border-b border-gray-200 bg-white">
+        <div class="container mx-auto flex px-5">
+          <%= link_to "New Entry", root_path,
+                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(root_path) ? 'border-gray-900 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'}" %>
+          <%= link_to "My Gratitudes", entries_path,
+                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(entries_path) ? 'border-gray-900 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'}" %>
+          <%= link_to "Gratitudes Received", received_path,
+                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(received_path) ? 'border-gray-900 text-gray-900' : 'border-transparent text-gray-500 hover:text-gray-900'}" %>
+        </div>
+      </nav>
+    <% end %>
+
+    <main class="container mx-auto mt-8 px-5">
+      <% if notice %><p class="notice mb-4 text-sm text-green-700"><%= notice %></p><% end %>
+      <% if alert %><p class="alert mb-4 text-sm text-red-700"><%= alert %></p><% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
