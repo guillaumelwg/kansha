@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_05_083311) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_16_162704) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -24,8 +24,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_05_083311) do
   enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-  enable_extension "supabase_vault"
-  enable_extension "uuid-ossp"
 
   create_table "entries", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -46,6 +44,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_05_083311) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["entry_id"], name: "index_shares_on_entry_id"
+    t.index ["entry_id"], name: "index_shares_on_entry_id_unclaimed", unique: true, where: "(claimed_at IS NULL)"
     t.index ["recipient_id"], name: "index_shares_on_recipient_id"
     t.index ["sender_id"], name: "index_shares_on_sender_id"
     t.index ["token"], name: "index_shares_on_token", unique: true
@@ -58,6 +57,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_05_083311) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remember_token", limit: 20
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

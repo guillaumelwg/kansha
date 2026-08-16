@@ -1,2 +1,24 @@
-<h1 class="text-xl font-semibold text-gray-900">New Entry</h1>
-<p class="mt-2 text-sm text-gray-500">Placeholder — write entry form comes in Slice 1.</p>
+<div class="max-w-xl">
+  <h1 class="font-serif text-2xl text-ink">New Entry</h1>
+  <p class="mt-2 text-sm text-muted">Write one thing you're grateful for — any length, no template.</p>
+
+  <% if @entry.errors.any? %>
+    <div class="mt-4 text-sm text-red-700">
+      <ul class="list-inside list-disc">
+        <% @entry.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @entry, class: "mt-6", data: { controller: "char-counter" } do |f| %>
+    <%= f.text_area :body, rows: 8, autofocus: true, required: true, maxlength: 5000,
+          data: { char_counter_target: "input", action: "input->char-counter#update" },
+          class: "block w-full rounded-md border-border bg-white text-ink shadow-sm" %>
+
+    <p class="mt-1 text-right text-xs text-muted" data-char-counter-target="count"></p>
+
+    <%= f.submit "Save", class: "mt-4 rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
+  <% end %>
+</div>

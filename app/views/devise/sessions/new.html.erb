@@ -1,0 +1,36 @@
+<div class="mx-auto mt-16 max-w-sm">
+  <h1 class="font-serif text-2xl text-ink">Welcome to Kansha</h1>
+  <p class="mt-2 text-sm text-muted">Enter your email and we'll send you a link to continue — no password needed.</p>
+
+  <% if resource.errors.any? %>
+    <div class="mt-4 text-sm text-red-700">
+      <ul class="list-inside list-disc">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%# Turbo Drive requires form responses to redirect; this action renders a
+      confirmation view directly on success, so it opts out and does a normal
+      full-page submit instead. %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name),
+        html: { data: { controller: "timezone", turbo: false } }) do |f| %>
+    <div class="mt-6">
+      <%= f.label :first_name, "First name", class: "block text-sm font-medium text-ink" %>
+      <%= f.text_field :first_name, autofocus: true, required: true, autocomplete: "given-name",
+            class: "mt-1 block w-full rounded-md border-border bg-white text-ink shadow-sm" %>
+    </div>
+
+    <div class="mt-4">
+      <%= f.label :email, class: "block text-sm font-medium text-ink" %>
+      <%= f.email_field :email, required: true, autocomplete: "email",
+            class: "mt-1 block w-full rounded-md border-border bg-white text-ink shadow-sm" %>
+    </div>
+
+    <%= f.hidden_field :timezone, data: { timezone_target: "field" } %>
+
+    <%= f.submit "Continue", class: "mt-6 w-full rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
+  <% end %>
+</div>

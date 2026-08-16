@@ -60,6 +60,10 @@ group :development, :test do
 
   # Loads DATABASE_URL and other secrets from .env in development/test
   gem "dotenv-rails"
+
+  # RSpec for risk-zone logic only (CLAUDE.md) — timezone boundaries, claim
+  # race, cascading delete. Not a full test suite.
+  gem "rspec-rails"
 end
 
 group :development do

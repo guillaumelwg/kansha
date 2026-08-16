@@ -1,2 +1,16 @@
-<h1 class="text-xl font-semibold text-gray-900">Gratitudes Received</h1>
-<p class="mt-2 text-sm text-gray-500">Placeholder — received list comes in Slice 1.</p>
+<h1 class="font-serif text-2xl text-ink">Gratitudes Received</h1>
+
+<% if @shares.empty? %>
+  <p class="mt-4 text-sm text-muted">Nothing here yet — when someone shares a gratitude with you, it'll show up here.</p>
+<% else %>
+  <ul class="mt-6 space-y-4">
+    <% @shares.each do |share| %>
+      <li>
+        <%= link_to received_entry_path(share), class: "block rounded-md border border-border bg-white p-4" do %>
+          <p class="text-xs text-muted">From <%= share.sender_name_snapshot %> · <%= local_time(share.claimed_at) %></p>
+          <p class="mt-2 line-clamp-3 whitespace-pre-wrap break-words text-ink"><%= share.entry_body_snapshot %></p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

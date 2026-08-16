@@ -1,1 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap");
 @import "tailwindcss";
+
+/* Design tokens — "Warm ink (sage)" direction, locked in CLAUDE.md. Applied
+   screen-by-screen as each one is touched, starting with Slice 2.5 (Profile). */
+@theme {
+  --color-background: #F6F1E7;
+  --color-ink: #2B2B23;
+  --color-sage: #6E8C74;
+  --color-muted: #8C7B5E;
+  --color-border: #DDD3C0;
+  --font-serif: "Fraunces", serif;
+}

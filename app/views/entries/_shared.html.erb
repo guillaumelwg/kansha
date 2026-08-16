@@ -1,0 +1,11 @@
+<div id="share_cta" class="mt-6" data-controller="clipboard">
+  <p class="text-sm font-medium text-ink">Share text</p>
+  <div class="mt-2 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-3 text-sm text-ink" data-clipboard-target="source"><%= share_message(share) %></div>
+
+  <button type="button" data-action="clipboard#copy" data-clipboard-target="button"
+        class="mt-3 min-h-[44px] rounded-md border border-sage px-4 py-2 text-sm font-medium text-sage">
+    Copy share text
+  </button>
+
+  <p class="mt-4 text-xs text-muted">Paste this into WhatsApp, email, or a text — whichever's easiest.</p>
+</div>

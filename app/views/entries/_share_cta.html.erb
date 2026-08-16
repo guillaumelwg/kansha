@@ -1,0 +1,5 @@
+<div id="share_cta" class="mt-6">
+  <%= button_to "Share this gratitude", entry_shares_path(entry), method: :post,
+        form: { data: { turbo_stream: true } },
+        class: "min-h-[44px] rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
+</div>

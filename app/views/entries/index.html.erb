@@ -1,2 +1,16 @@
-<h1 class="text-xl font-semibold text-gray-900">My Gratitudes</h1>
-<p class="mt-2 text-sm text-gray-500">Placeholder — chronological entry list comes in Slice 1.</p>
+<h1 class="font-serif text-2xl text-ink">My Gratitudes</h1>
+
+<% if @entries.empty? %>
+  <p class="mt-4 text-sm text-muted">
+    Nothing here yet. <%= link_to "Write your first entry", root_path, class: "text-sage underline" %>.
+  </p>
+<% else %>
+  <ul class="mt-6 space-y-4">
+    <% @entries.each do |entry| %>
+      <li class="rounded-md border border-border bg-white p-4">
+        <p class="text-xs text-muted"><%= local_time(entry.created_at) %></p>
+        <p class="mt-2 whitespace-pre-wrap break-words text-ink"><%= entry.body %></p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

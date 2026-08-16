@@ -1,11 +1,11 @@
 class User < ApplicationRecord
-  # Magic-link only — no password. :registerable is kept for Devise's standard
-  # param permitting; the actual "new email creates an account" signup flow
-  # (spec.md section 3) needs a custom sessions controller, built in Slice 1.
-  devise :magic_link_authenticatable, :registerable, :rememberable
+  # Magic-link only — no password, no separate registration flow. New-vs-
+  # existing-email is decided in Users::SessionsController#create (spec.md §3).
+  devise :magic_link_authenticatable, :rememberable
 
   validates :email, presence: true, uniqueness: true,
                      format: { with: Devise.email_regexp }
+  validates :first_name, presence: true
 
   # Entries this user authored — spec.md's "My Gratitudes" (US-02).
   has_many :entries, dependent: :destroy

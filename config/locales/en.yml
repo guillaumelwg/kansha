@@ -28,4 +28,13 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      entry:
+        body: "Your entry"
+    errors:
+      models:
+        entry:
+          attributes:
+            body:
+              too_long: "is too long — please keep it under 5,000 characters."

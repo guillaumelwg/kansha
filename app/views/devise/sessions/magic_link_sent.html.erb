@@ -1,0 +1,15 @@
+<div class="mx-auto mt-16 max-w-sm">
+  <h1 class="font-serif text-2xl text-ink">Check your email, <%= resource.first_name %></h1>
+
+  <p class="mt-4 text-sm text-muted">
+    We've sent a link to <strong class="font-medium text-ink"><%= resource.email %></strong>.
+    Follow it to continue.
+  </p>
+
+  <p class="mt-2 text-sm text-muted">
+    The link expires in <%= (Devise.passwordless_login_within / 1.minute).to_i %> minutes.
+  </p>
+
+  <%= link_to "Wrong email? Go back", new_user_session_path,
+        class: "mt-6 inline-block text-sm text-sage underline" %>
+</div>

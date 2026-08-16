@@ -39,6 +39,9 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Real sends via Resend, same as production — requires RESEND_API_KEY in .env.
+  config.action_mailer.delivery_method = :resend
+
   config.action_mailer.perform_caching = false
 
   # Required by Devise to build magic-link URLs in emails.

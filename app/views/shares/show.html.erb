@@ -1,0 +1,12 @@
+<% if current_user.id == @share.sender_id %>
+  <div class="max-w-xl">
+    <h1 class="font-serif text-2xl text-ink">Your gratitude</h1>
+    <p class="mt-2 text-sm text-muted">This is your own share link — copy it from the confirmation screen to send it.</p>
+
+    <blockquote class="mt-6 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink">
+      <%= @share.entry.body %>
+    </blockquote>
+  </div>
+<% else %>
+  <%= render "shares/received_entry", share: @share %>
+<% end %>
