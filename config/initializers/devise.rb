@@ -24,9 +24,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  # onboarding@resend.dev works without a verified sending domain — fine for
-  # dev/testing. Swap for a real address on a verified domain before launch.
-  config.mailer_sender = 'onboarding@resend.dev'
+  config.mailer_sender = 'noreply@trykansha.com'
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'

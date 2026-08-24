@@ -81,7 +81,7 @@ Rails.application.configure do
 
   # TODO before deploy: set this to the real Render hostname, or magic-link
   # and share URLs in emails will point at the wrong place.
-  # config.action_mailer.default_url_options = { host: "kansha.example.com" }
+config.action_mailer.default_url_options = { host: "trykansha.com", protocol: "https" }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
