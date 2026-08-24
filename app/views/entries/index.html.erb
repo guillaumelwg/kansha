@@ -7,9 +7,12 @@
 <% else %>
   <ul class="mt-6 space-y-4">
     <% @entries.each do |entry| %>
-      <li class="rounded-md border border-border bg-white p-4">
-        <p class="text-xs text-muted"><%= local_time(entry.created_at) %></p>
-        <p class="mt-2 whitespace-pre-wrap break-words text-ink"><%= entry.body %></p>
+      <li>
+        <%= link_to entry_path(entry), class: "block cursor-pointer rounded-md border border-border bg-white p-4", data: { controller: "truncate" } do %>
+          <p class="text-xs text-muted"><%= local_time(entry.created_at) %></p>
+          <p class="mt-2 line-clamp-4 whitespace-pre-wrap break-words text-ink" data-truncate-target="text"><%= entry.body %></p>
+          <p class="mt-2 hidden text-xs text-muted" data-truncate-target="label">Read more</p>
+        <% end %>
       </li>
     <% end %>
   </ul>

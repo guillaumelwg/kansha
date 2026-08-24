@@ -1,16 +1,22 @@
 <div class="max-w-xl">
-  <h1 class="font-serif text-2xl text-ink">Saved</h1>
-  <p class="mt-2 text-sm text-muted">Your gratitude has been saved.</p>
+  <% if flash[:just_created] %>
+    <h1 class="font-serif text-2xl text-ink">Saved</h1>
+    <p class="mt-2 text-sm text-muted">Your gratitude has been saved.</p>
+  <% else %>
+    <%= link_to "Back to My Gratitudes", entries_path, class: "text-sm text-sage underline" %>
+  <% end %>
 
-  <blockquote class="mt-6 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink">
+  <p class="mt-6 text-xs text-muted"><%= local_time(@entry.created_at) %></p>
+
+  <blockquote class="mt-2 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink">
     <%= @entry.body %>
   </blockquote>
 
-  <% if @unclaimed_share %>
-    <%= render "shared", share: @unclaimed_share %>
-  <% elsif !@share_claimed %>
+  <% unless @share_claimed %>
     <%= render "share_cta", entry: @entry %>
   <% end %>
 
-  <%= link_to "Write another", root_path, class: "mt-6 inline-block text-sm text-sage underline" %>
+  <% if flash[:just_created] %>
+    <%= link_to "Write another", root_path, class: "mt-6 inline-block text-sm text-sage underline" %>
+  <% end %>
 </div>

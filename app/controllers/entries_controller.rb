@@ -7,6 +7,7 @@ class EntriesController < ApplicationController
     @entry = current_user.entries.new(entry_params)
 
     if @entry.save
+      flash[:just_created] = true
       redirect_to entry_path(@entry)
     else
       render :new, status: :unprocessable_content
@@ -15,12 +16,12 @@ class EntriesController < ApplicationController
 
   def show
     @entry = current_user.entries.find(params[:id])
-    # US-10 confirmation screen: reflect existing share state instead of
-    # always showing a fresh CTA (Slice 3 fix — one active recipient per
-    # entry for MVP). Unclaimed share → show its link again. Claimed share
-    # and no unclaimed one → hide the CTA entirely, don't re-prompt.
-    @unclaimed_share = @entry.shares.find_by(claimed_at: nil)
-    @share_claimed = @unclaimed_share.nil? && @entry.shares.where.not(claimed_at: nil).exists?
+    # US-10 confirmation screen (Slice 3 fix): whether the entry has been
+    # claimed is the only thing that should persist across page loads. The
+    # expanded "share text" block is purely an in-page reveal after clicking
+    # Share (see shares/create.turbo_stream.erb) — every fresh load shows the
+    # CTA again, even though an unclaimed Share row already exists behind it.
+    @share_claimed = @entry.shares.where.not(claimed_at: nil).exists?
   end
 
   def index
