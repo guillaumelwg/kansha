@@ -20,17 +20,17 @@
     <div class="mt-6">
       <%= f.label :first_name, "First name", class: "block text-sm font-medium text-ink" %>
       <%= f.text_field :first_name, autofocus: true, required: true, autocomplete: "given-name",
-            class: "mt-1 block w-full rounded-md border-border bg-white text-ink shadow-sm" %>
+            class: "mt-1 block w-full min-h-[44px] rounded-md border-border bg-white text-ink shadow-sm" %>
     </div>
 
     <div class="mt-4">
       <%= f.label :email, class: "block text-sm font-medium text-ink" %>
       <%= f.email_field :email, required: true, autocomplete: "email",
-            class: "mt-1 block w-full rounded-md border-border bg-white text-ink shadow-sm" %>
+            class: "mt-1 block w-full min-h-[44px] rounded-md border-border bg-white text-ink shadow-sm" %>
     </div>
 
     <%= f.hidden_field :timezone, data: { timezone_target: "field" } %>
 
-    <%= f.submit "Continue", class: "mt-6 w-full rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
+    <%= f.submit "Continue", class: "mt-6 min-h-[44px] w-full rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
   <% end %>
 </div>

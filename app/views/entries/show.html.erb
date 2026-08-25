@@ -8,9 +8,7 @@
 
   <p class="mt-6 text-xs text-muted"><%= local_time(@entry.created_at) %></p>
 
-  <blockquote class="mt-2 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink">
-    <%= @entry.body %>
-  </blockquote>
+  <blockquote class="mt-2 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink"><%= @entry.body %></blockquote>
 
   <% unless @share_claimed %>
     <%= render "share_cta", entry: @entry %>

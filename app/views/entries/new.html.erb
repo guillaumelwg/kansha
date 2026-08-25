@@ -1,6 +1,6 @@
 <div class="max-w-xl">
   <h1 class="font-serif text-2xl text-ink">New Entry</h1>
-  <p class="mt-2 text-sm text-muted">Write one thing you're grateful for — any length, no template.</p>
+  <p class="mt-2 text-sm text-muted">Write one thing you're grateful for.</p>
 
   <% if @entry.errors.any? %>
     <div class="mt-4 text-sm text-red-700">
@@ -19,6 +19,6 @@
 
     <p class="mt-1 text-right text-xs text-muted" data-char-counter-target="count"></p>
 
-    <%= f.submit "Save", class: "mt-4 rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
+    <%= f.submit "Save", class: "mt-4 min-h-[44px] rounded-md bg-sage px-4 py-2 text-sm font-medium text-white" %>
   <% end %>
 </div>
