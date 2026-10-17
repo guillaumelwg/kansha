@@ -10,6 +10,10 @@
 
   <blockquote class="mt-2 whitespace-pre-wrap break-words rounded-md border border-border bg-white p-4 text-ink"><%= @entry.body %></blockquote>
 
+  <% if @share_exists %>
+    <p class="mt-2 text-xs text-muted"><%= @share_claimed ? "Seen by your recipient." : "Not yet seen by your recipient." %></p>
+  <% end %>
+
   <% unless @share_claimed %>
     <%= render "share_cta", entry: @entry %>
   <% end %>
@@ -17,4 +21,11 @@
   <% if flash[:just_created] %>
     <%= link_to "Write another", root_path, class: "mt-6 inline-block text-sm text-sage underline" %>
   <% end %>
+
+  <div class="mt-6 flex gap-4">
+    <%= link_to "Edit", edit_entry_path(@entry), class: "min-h-[44px] flex items-center text-sm text-sage underline" %>
+    <%= button_to "Delete", entry_path(@entry), method: :delete,
+          form: { data: { turbo_confirm: "Delete this gratitude? This can't be undone." } },
+          class: "min-h-[44px] text-sm text-red-700 underline" %>
+  </div>
 </div>

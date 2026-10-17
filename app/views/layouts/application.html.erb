@@ -39,11 +39,11 @@
       <nav class="sticky inset-x-0 bottom-0 z-10 border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
         <div class="container mx-auto flex px-5">
           <%= link_to "New Entry", root_path,
-                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(root_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
+                class: "flex-1 text-center px-4 py-3 text-sm font-medium border-b-2 #{current_page?(root_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
           <%= link_to "My Gratitudes", entries_path,
-                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(entries_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
+                class: "flex-1 text-center px-4 py-3 text-sm font-medium border-b-2 #{current_page?(entries_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
           <%= link_to "Gratitudes Received", received_path,
-                class: "px-4 py-3 text-sm font-medium border-b-2 #{current_page?(received_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
+                class: "flex-1 text-center px-4 py-3 text-sm font-medium border-b-2 #{current_page?(received_path) ? 'border-sage text-ink' : 'border-transparent text-muted hover:text-ink'}" %>
         </div>
       </nav>
     <% end %>

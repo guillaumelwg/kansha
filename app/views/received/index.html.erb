@@ -6,9 +6,10 @@
   <ul class="mt-6 space-y-4">
     <% @shares.each do |share| %>
       <li>
-        <%= link_to received_entry_path(share), class: "block rounded-md border border-border bg-white p-4" do %>
+        <%= link_to received_entry_path(share), class: "block cursor-pointer rounded-md border border-border bg-white p-4", data: { controller: "truncate" } do %>
           <p class="text-xs text-muted">From <%= share.sender_name_snapshot %> · <%= local_time(share.claimed_at) %></p>
-          <p class="mt-2 line-clamp-3 whitespace-pre-wrap break-words text-ink"><%= share.entry_body_snapshot %></p>
+          <p class="mt-2 line-clamp-4 whitespace-pre-wrap break-words text-ink" data-truncate-target="text"><%= share.entry_body_snapshot %></p>
+          <p class="mt-2 hidden text-xs text-muted" data-truncate-target="label">Read more</p>
         <% end %>
       </li>
     <% end %>

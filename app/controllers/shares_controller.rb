@@ -23,7 +23,17 @@ class SharesController < ApplicationController
   end
 
   def show
-    @share = Share.find_by!(token: params[:token])
+    @share = Share.find_by(token: params[:token])
+
+    # A missing share means the token never existed, or its entry was
+    # deleted while unclaimed (Entry destroys unclaimed shares outright — see
+    # Entry#destroy_unclaimed_shares_and_detach_claimed_shares). Render the
+    # distinct "gone" page (404), not the already-claimed one. Runs before
+    # any auth branching so a logged-out visitor isn't sent to signup.
+    if @share.nil?
+      render :gone, status: :not_found
+      return
+    end
 
     # Claimed-check comes first, before any auth branching, so a stranger
     # opening an already-claimed link is denied immediately instead of

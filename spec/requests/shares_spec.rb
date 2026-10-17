@@ -111,4 +111,54 @@ RSpec.describe "GET /shares/:token", type: :request do
 
     expect(response).to redirect_to(new_user_session_path)
   end
+
+  # A missing token renders the distinct "gone" page (404), separate from
+  # "Already claimed" (403), and before any auth branching. The existing
+  # third-party and unauthenticated claimed-link specs above cover that the
+  # already-claimed page is unchanged.
+  it "renders the gone page for an unknown token while logged out, without redirecting to signup" do
+    get share_path(token: "does-not-exist")
+
+    expect(response).to have_http_status(:not_found)
+    expect(response.body).to include("This gratitude is no longer available")
+    expect(response.body).not_to include("Already claimed")
+    expect(response).not_to redirect_to(new_user_session_path)
+  end
+
+  it "renders the gone page for an unknown token while logged in" do
+    sign_in create_user("viewer")
+
+    get share_path(token: "does-not-exist")
+
+    expect(response).to have_http_status(:not_found)
+    expect(response.body).to include("This gratitude is no longer available")
+  end
+
+  # US-03 delete risk zone: deleting an entry destroys its unclaimed shares
+  # (Entry#destroy_unclaimed_shares_and_detach_claimed_shares), so the token
+  # no longer resolves and the link shows the gone page.
+  it "renders the gone page for a token whose entry was deleted while unclaimed" do
+    sender = create_user("sender")
+    entry = sender.entries.create!(body: "Grateful for you.")
+    share = entry.shares.create!(sender: sender)
+    token = share.token
+    entry.destroy
+
+    get share_path(token: token)
+
+    expect(response).to have_http_status(:not_found)
+    expect(response.body).to include("This gratitude is no longer available")
+    expect(response.body).not_to include("Already claimed")
+  end
+
+  it "still renders the already-claimed page for a claimed link visited by a third party" do
+    share, = create_claimed_share
+    sign_in create_user("outsider")
+
+    get share_path(token: share.token)
+
+    expect(response).to have_http_status(:forbidden)
+    expect(response.body).to include("Already claimed")
+    expect(response.body).not_to include("no longer available")
+  end
 end

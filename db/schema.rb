@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_16_162704) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_25_111210) do
   create_schema "auth"
   create_schema "extensions"
   create_schema "graphql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_16_162704) do
   end
 
   create_table "shares", force: :cascade do |t|
-    t.bigint "entry_id", null: false
+    t.bigint "entry_id"
     t.bigint "sender_id", null: false
     t.string "token", null: false
     t.bigint "recipient_id"

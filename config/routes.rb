@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "entries#new"
-  resources :entries, only: [:index, :new, :create, :show] do
+  resources :entries, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
     resources :shares, only: [:create]
   end
   get "/shares/:token", to: "shares#show", as: :share
