@@ -75,5 +75,8 @@ Full test suite is not the goal for a 3-week solo MVP. Use RSpec (or Minitest, w
 - `bundle exec rspec` — run the RSpec suite (risk-zone logic only, per Testing section below). No `bin/rspec` binstub yet.
 - Test DB is **local Postgres**, not Supabase — see `.env.test` (created Slice 3). `RAILS_ENV=test` would otherwise inherit `.env`'s DATABASE_URL and hit the same Supabase dev database as `development`, which is unsafe for a suite that includes non-transactional tests. Requires local Postgres running (`brew services start postgresql@16`) with a `kansha_test` database (`createdb kansha_test`) and migrated (`RAILS_ENV=test bin/rails db:migrate` — not `db:schema:load`, since `db/schema.rb` includes Supabase-only extensions like `supabase_vault` that don't exist on local Postgres).
 
+## Database safety
+Dev and prod share the same Supabase database. Never run db:reset, db:drop, db:schema:load or db:seed. Ask first before any destructive or data-altering DB command. RSpec uses the separate test database.
+
 ## Session logging
 At the end of each Claude Code session, summarize in plain terms: what was built, anything you (Claude Code) were unsure about or made a judgment call on, and any spot where I should manually double-check before moving on. This feeds the build logbook directly — keep it factual, not narrated.
