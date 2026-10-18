@@ -20,11 +20,25 @@ class Users::SessionsController < Devise::Passwordless::SessionsController
       end
     end
 
+    remember_pending_share(resource)
     send_magic_link(resource)
     render :magic_link_sent
   end
 
   private
+
+  # The share link and the magic link can be opened in two different
+  # browsers/devices, and only the first one has the stored location in its
+  # session. So while we still have that session (this POST), copy the share
+  # token onto the user; ApplicationController#after_sign_in_path_for reads it
+  # back when the magic link is clicked, wherever that happens.
+  #
+  # Read with session[...] (not stored_location_for) so the key stays in the
+  # session: the same-browser flow still needs it after sign-in.
+  def remember_pending_share(user)
+    token = ShareLocation.token_from(session["user_return_to"])
+    user.update!(pending_share_token: token) if token
+  end
 
   # Every sign-in is a long-lived session (US-08) — there's no "remember me"
   # checkbox on the single-field screen, so always request it.

@@ -44,6 +44,10 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Needed so the magic-link email can build its absolute URL when request
+  # specs submit the real sign-in form (spec/requests/share_token_cross_browser_spec.rb).
+  config.action_mailer.default_url_options = { host: "www.example.com" }
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
